@@ -11,20 +11,12 @@ spec:
     metadata:
       labels:
         app: selenium-hub
-    spec:
-    containers:
-      - name: selenium-hub
-        image: selenium/hub:4.21.0
-        ports:
-          - containerPort: 4444
----
-apiVersion: v1
-kind: Service
-metadata:
-  name: selenium-hub
-spec:
-  selector:
-    app: selenium-hub
-  ports:
-    - port: 4444
-      targetPort: 4444
+  spec:
+   containers:
+     - name: selenium-hub
+       image: selenium/hub:4.21.0
+       ports:
+         - containerPort: 444
+       readinessProbe:
+         httpGet:
+           path: /s

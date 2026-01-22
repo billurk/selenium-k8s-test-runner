@@ -7,6 +7,20 @@ spec:
   template:
     spec:
       restartPolicy: Never
+
+      initContainers:
+        - name: wait-for-selenium-hub
+          image: curlimages/curl:8.6.0
+          command:
+            - sh
+            - -c
+            - |
+              echo "Waiting for Selenium Hub..."
+              until curl -sf http://selenium-hub:4444/status; do
+                sleep 5
+              done
+              echo "Selenium Hub is READY"
+
       containers:
         - name: test-runner
-          image: selenium-test-runner:latest
+          image: billur2756/selenium-test-runner:amd64
